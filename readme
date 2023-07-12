@@ -1,0 +1,4 @@
+This application will allow to create test forms (currently focused on multiple choice questions) and save it to a PDF file
+It is created using React + Typescript ( using Vite). In later stages of development a back-end server will be added (using Express.js) and a MongoDB database to store user login data and already saved tests.  
+At the moment its in early stages of creating basic functionality of managing new questions and answers.
+To run the current version type in the terminal: npm run dev

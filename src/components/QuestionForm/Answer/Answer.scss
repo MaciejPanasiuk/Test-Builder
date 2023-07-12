@@ -1,0 +1,12 @@
+.Answer {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+
+  textarea,
+  button,
+  span {
+    align-self: flex-start; /* Align button/span to the top */
+    margin-top: 0;
+  }
+}
