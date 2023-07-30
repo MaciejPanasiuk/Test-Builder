@@ -1,52 +1,46 @@
-import { useState } from "react";
-import { AnswerObj } from "./../../../Interfaces/Interfaces";
-import { Dispatch, SetStateAction } from "react";
-import { SpanEvent,ButtonEvent } from "../../../Interfaces/types";
+import {AnswerProps } from "../../../Interfaces/types";
 
-type AnswerProps = {
-  answerFromMemory: AnswerObj;
-  onSetAnswers: Dispatch<SetStateAction<AnswerObj[]>>;
-};
-function Answer({ onSetAnswers, answerFromMemory }: AnswerProps) {
-  const [answer, setAnswer] = useState<AnswerObj>(answerFromMemory);
+function Answer({
+  currentAnswer,
+  selectedAnswer,
+  currentQuestion,
+  onAnswerSelect,
+  onAnswerListUpdate,
+}: AnswerProps) {
+  const onAnswerFocus=()=>{
+    onAnswerSelect(currentAnswer)
 
-  function handleAnswerChange(inputVal: string) {
-    setAnswer((current) => ({ ...current, answerText: inputVal }));
   }
-  function handleAnswerSubmit(event: SpanEvent) {
-    event.preventDefault();
-    setAnswer(current=>({...current,isAdded:true}))//zmienia na true, ale w parencie dalej jest false
-    onSetAnswers((prevAnswers) => {
+  const handleAnswerChange=(newAnswer: string)=>{
+    onAnswerSelect(prevAnswer=>
+      {return{...prevAnswer,answerText:newAnswer}})
+
+    onAnswerListUpdate(prevAnswers=>{
       const answersClone = structuredClone(prevAnswers);
       const answerIndex = answersClone.findIndex(
-        (elem) => elem.Id === answer.Id
-      );
-      // answersClone[answerIndex] = answer;
-      answersClone[answerIndex] = {...answer,isAdded:true};
-      return answersClone;
-    });
-
-  }
-  function handleEdit(event: ButtonEvent) {
-    event.preventDefault();
-    setAnswer(current=>({...current,isAdded:false}))
-
-  }
+        (answer) => answer.Id === selectedAnswer.Id
+        );
+        answersClone[answerIndex] = { ...selectedAnswer, answerText: newAnswer  };
+        return answersClone;
+    })
+  };
   return (
-    <div className="Answer">
-      <textarea
-        disabled={answer.isAdded}
+    <div className="singleAnswer">
+      {currentQuestion.isActive?<textarea
+      disabled={!currentQuestion.isActive}
         rows={1}
-        cols={50}
-        placeholder={`Answer`}
-        value={answer.answerText}
+        cols={40}
+        placeholder={currentAnswer.answerText}
+        value={
+          selectedAnswer.Id === currentAnswer.Id
+            ? selectedAnswer.answerText
+            : currentAnswer.answerText
+        }
+        onFocus={() => {onAnswerFocus()}}
         onChange={(e) => handleAnswerChange(e.target.value)}
-      ></textarea>
-      {answer.isAdded ? (
-        <button onClick={(e) => handleEdit(e)}>Edit</button>
-      ) : (
-        <span onClick={(e) => handleAnswerSubmit(e)}>&#9989;</span>
-      )}
+
+      ></textarea>:<div>{currentAnswer.answerText}</div>}
+      
     </div>
   );
 }

@@ -1,6 +1,7 @@
-.answerContainer{
+.questionContainer{
     display:flex;
     column-gap: 25px;
+    justify-content: center;
 }
 .Alpha{
     list-style-type:upper-alpha
@@ -10,4 +11,8 @@
     margin: 0 auto;
     padding: 2rem;
     text-align: center;
+  }
+
+  .questionText{
+    margin:0;
   }

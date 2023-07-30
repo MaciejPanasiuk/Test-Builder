@@ -1,15 +1,13 @@
 // import  QuestionDisplay from './components/QuestionDisplay/QuestionDisplay'
 import './App.css'
-import QuestionForm from './components/QuestionForm/QuestionForm'
+import Header from './components/Header/Header'
+import TestForm from './components/TestForm/TestForm'
 
 function App() {
 
 
   return (
-    <>
-    {/* <QuestionDisplay></QuestionDisplay> */}
-    <QuestionForm></QuestionForm>
-    </>
+    <TestForm/>
   )
 }
 

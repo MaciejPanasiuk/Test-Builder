@@ -1,5 +1,13 @@
-export interface AnswerObj {
-    Id: number;
+
+
+export interface AnswerCont {
+    Id: string;
     answerText: string;
-    isAdded?:boolean
+    isEditingEnabled:boolean
+  }
+  export interface QuestionCont {
+    Id: string;
+    isActive?:boolean
+    questionText: string;
+    answers: Array<AnswerCont>;
   }

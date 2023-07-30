@@ -1,0 +1,14 @@
+.QWAContainer{
+    display:flex;
+    column-gap: 40px;
+    justify-content: space-between;
+    padding:5px;
+    border:2px solid transparent;
+    transition: border-color 0.7s,background-color 0.4s;
+    width:100%;
+
+}
+.QWAContainer:hover{
+    border-color : rgb(97, 22, 107) ; 
+    background-color: #2c2b2b;
+}

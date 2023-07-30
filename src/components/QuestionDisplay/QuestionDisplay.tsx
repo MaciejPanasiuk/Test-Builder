@@ -3,17 +3,18 @@ import { sampleTest } from "../../Data/const";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import "./QuestionDisplay.scss"
+import { QuestionContainer } from "../../Interfaces/Interfaces";
 
 interface Answer {
   Id: string;
   answerText: string;
 }
 
-interface QuestionContainer {
-  Id: string;
-  questionText: string;
-  answers: Array<Answer>;
-}
+// interface QuestionContainer {
+//   Id: string;
+//   questionText: string;
+//   answers: Array<Answer>;
+// }
 function QuestionDisplay() {
   const [currentTest, setCurrentTest] = useState<QuestionContainer[]>([]);
 
