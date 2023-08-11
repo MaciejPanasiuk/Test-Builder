@@ -1,7 +1,7 @@
 // import  QuestionDisplay from './components/QuestionDisplay/QuestionDisplay'
 import './App.css'
 import Header from './components/Header/Header'
-import TestForm from './components/TestForm/TestForm'
+import TestForm from './components/Test/TestForm/TestForm'
 
 function App() {
 

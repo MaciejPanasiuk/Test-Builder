@@ -9,11 +9,10 @@ export const sampleTest: QuestionCont[] = [
       {
         Id: `11`,
         answerText: "10/km/h",
-        isEditingEnabled: false,
       },
-      { Id: `12`, answerText: "20/km/h", isEditingEnabled: false },
-      { Id: `13`, answerText: "30/km/h", isEditingEnabled: false },
-      { Id: `14`, answerText: "100km/h", isEditingEnabled: false },
+      { Id: `12`, answerText: "20/km/h" },
+      { Id: `13`, answerText: "30/km/h" },
+      { Id: `14`, answerText: "100km/h" },
     ],
   },
   {
@@ -25,11 +24,10 @@ export const sampleTest: QuestionCont[] = [
       {
         Id: `21`,
         answerText: "answer1",
-        isEditingEnabled: false,
       },
-      { Id: `22`, answerText: "answer2", isEditingEnabled: false },
-      { Id: `23`, answerText: "answer3", isEditingEnabled: false },
-      { Id: `24`, answerText: "answer4", isEditingEnabled: false },
+      { Id: `22`, answerText: "answer2" },
+      { Id: `23`, answerText: "answer3" },
+      { Id: `24`, answerText: "answer4" },
     ],
   },
   {
@@ -41,11 +39,10 @@ export const sampleTest: QuestionCont[] = [
       {
         Id: `31`,
         answerText: "answer5",
-        isEditingEnabled: false,
       },
-      { Id: `32`, answerText: "answer6", isEditingEnabled: false },
-      { Id: `33`, answerText: "answer7", isEditingEnabled: false },
-      { Id: `34`, answerText: "answer8", isEditingEnabled: false },
+      { Id: `32`, answerText: "answer6", },
+      { Id: `33`, answerText: "answer7", },
+      { Id: `34`, answerText: "answer8", },
     ],
   },
   {
@@ -55,12 +52,12 @@ export const sampleTest: QuestionCont[] = [
     answers: [
       {
         Id: `41`,
-        answerText: "answer9",
-        isEditingEnabled: false,
+        answerText: "answer9"
+    
       },
-      { Id: `42`, answerText: "answer10", isEditingEnabled: false },
-      { Id: `43`, answerText: "answer11", isEditingEnabled: false },
-      { Id: `44`, answerText: "answer12", isEditingEnabled: false },
+      { Id: `42`, answerText: "answer10"},
+      { Id: `43`, answerText: "answer11"},
+      { Id: `44`, answerText: "answer12"},
     ],
   },
   {
@@ -71,25 +68,24 @@ export const sampleTest: QuestionCont[] = [
     answers: [
       {
         Id: `51`,
-        answerText: "fsfsf",isEditingEnabled: false
+        answerText: "fsfsf"
       },
-      { Id: `52`, answerText: "sdfdf", isEditingEnabled: false },
-      { Id: `53`, answerText: "lorem ipsum", isEditingEnabled: false },
-      { Id: `54`, answerText: "answer16", isEditingEnabled: false },
+      { Id: `52`, answerText: "sdfdf" },
+      { Id: `53`, answerText: "lorem ipsum" },
+      { Id: `54`, answerText: "answer16" },
     ],
   },
 ];
 
 export const AnswerSample={
   Id: '1',
-  answerText: "Sample Answer",
-  isEditingEnabled: false,
+  answerText: "Sample Answer"
 }
 export const AnswersListSample: AnswerCont[] = [
-  { Id: `1`, answerText: "Sample Answer", isEditingEnabled: false },
-  { Id: `2`, answerText: "Sample Answer", isEditingEnabled: false },
-  { Id: `3`, answerText: "Sample Answer", isEditingEnabled: false },
-  { Id: `4`, answerText: "Sample Answer", isEditingEnabled: false },
+  { Id: `1`, answerText: "Sample Answer" },
+  { Id: `2`, answerText: "Sample Answer" },
+  { Id: `3`, answerText: "Sample Answer" },
+  { Id: `4`, answerText: "Sample Answer" },
 ];
 export const QuestionSample: QuestionCont = {
   Id: `1`,

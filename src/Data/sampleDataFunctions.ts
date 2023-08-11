@@ -20,6 +20,8 @@ export const createSampleQuestionForm = (numOfAnswers = 4): QuestionCont => {
     return {
         Id: uuidv4(),
         answerText: "Sample Answer",
-        isEditingEnabled: false,
       }
+  }
+  export const getSampleTitle=()=>{
+    return {titleText:'My New Test',isActive:false}
   }

@@ -1,7 +1,7 @@
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
 import CheckRoundedIcon from "@mui/icons-material/CheckRounded";
-import { IconButton } from "@mui/material";
-import { EditProps, SpanEvent } from "../../../Interfaces/types";
+import { IconButton, Tooltip } from "@mui/material";
+import { ButtonProps, EditProps, SpanEvent } from "../../../Interfaces/types";
 import "./EditButton.scss";
 
 function EditButton({
@@ -12,7 +12,8 @@ function EditButton({
   onAnswerSelect,
   onSetTest,
   btn_size = "small",
-}: EditProps) {
+  tooltip=''
+}: EditProps & ButtonProps) {
   const handleConfirmClick = (event: SpanEvent) => {
     event.preventDefault();
     onQuestionSelect((prevQuestion) => {
@@ -44,6 +45,7 @@ function EditButton({
   return (
     <>
       {currentQuestion.isActive ? (
+        <Tooltip title={tooltip} arrow>
         <IconButton
           className="editButton"
           color="success"
@@ -52,7 +54,9 @@ function EditButton({
         >
           <CheckRoundedIcon fontSize="inherit" />
         </IconButton>
+        </Tooltip>
       ) : (
+        <Tooltip title={tooltip} arrow>
         <IconButton
           className="editButton"
           color="success"
@@ -61,6 +65,7 @@ function EditButton({
         >
           <EditRoundedIcon fontSize="inherit" />
         </IconButton>
+        </Tooltip>
       )}
     </>
   );

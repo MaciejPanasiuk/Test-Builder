@@ -1,15 +1,15 @@
 import { useEffect, useState, useCallback, useMemo } from "react";
-import { QuestionSample, sampleTest } from "../../Data/const";
-import { AnswerCont, QuestionCont } from "../../Interfaces/Interfaces";
+import {sampleTest } from "../../../Data/const";
+import { AnswerCont, QuestionCont, TitleType } from "../../../Interfaces/Interfaces";
 import Question from "../QuestionForm/Question/Question";
-import DeleteButton from "../Buttons/DeleteButton/DeleteButton";
-import { ButtonEvent } from "../../Interfaces/types";
+import DeleteButton from "../../Buttons/DeleteButton/DeleteButton";
 import Answer from "../QuestionForm/Answer/Answer";
 import QuestionWithAnswers from "../QuestionForm/QuestionWithAnswers/QuestionWithAnswers";
 import "./TestForm.scss";
-import EditButton from "../Buttons/EditButton/EditButton";
-import AddButton from "../Buttons/AddButton/AddButton";
-import { createAnswerSample, createSampleQuestionForm } from "../../Data/sampleDataFunctions";
+import EditButton from "../../Buttons/EditButton/EditButton";
+import AddButton from "../../Buttons/AddButton/AddButton";
+import { createAnswerSample, createSampleQuestionForm, getSampleTitle } from "../../../Data/sampleDataFunctions";
+import Title from "../Title/Title";
 
 function TestForm() {
   const [Test, setTest] = useState<QuestionCont[]>(sampleTest);
@@ -22,6 +22,7 @@ function TestForm() {
   const [selectedAnswer, setSelectedAnswer] = useState<AnswerCont>(
     sampleTest[0].answers[0]
   );
+  const[currentTitle,setCurrentTitle]=useState<TitleType>(getSampleTitle);
 
   const memoizedSelectedQuestion = useMemo(
     () => selectedQuestion,
@@ -51,15 +52,10 @@ function TestForm() {
     console.log(`i do stuff ans`);
   }, [selectedAnswerList]);
 
-  const handleAddQuestion = (event: ButtonEvent) => {
-    event.preventDefault();
-    setTest((prevTest) => {
-      return [...prevTest, QuestionSample];
-    });
-  };
   return (
     <div>
       <form>
+        <Title title={currentTitle} onTitleUpdate={setCurrentTitle} />
         {Test.map((currentQuestion, Queindex) => (
           <QuestionWithAnswers onMouseOver key={`${currentQuestion.Id}`}>
             <div>
@@ -97,12 +93,14 @@ function TestForm() {
                             currItem={currentAnswer}
                             onSetItem={setselectedAnswerList}
                             btn_size={"small"}
+                            tooltip={'Delete Answer'}
                           />
                           <AddButton
                             getSampleData={createAnswerSample}
                             listItemIndex={AnsIndex}
                             onSetItem={setselectedAnswerList}
                             btn_size={"small"}
+                            tooltip={'Add Answer Below'}
                           />
                         </>
                       )}
@@ -129,17 +127,20 @@ function TestForm() {
                 onQuestionSelect={setSelectedQuestion}
                 onAnswersListSelect={setselectedAnswerList}
                 btn_size={"large"}
+                tooltip={'Edit Question'}
               />
               <DeleteButton
                 currItem={currentQuestion}
                 onSetItem={setTest}
                 btn_size={"large"}
+                tooltip={'Edit Question'}
               />
               <AddButton
                 getSampleData={createSampleQuestionForm}
                 listItemIndex={Queindex}
                 onSetItem={setTest}
                 btn_size={"large"}
+                tooltip={'Add Question'}
               />
             </div>
           </QuestionWithAnswers>
@@ -149,8 +150,9 @@ function TestForm() {
                 listItemIndex={Test.length-1}
                 onSetItem={setTest}
                 btn_size={"large"}
-                btn_label={'Add Question'}
+                btn_label={'Add your first Question'}
               />}
+              
       </form>
     </div>
   );

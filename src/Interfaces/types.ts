@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
-import { AnswerCont, QuestionCont } from "./Interfaces";
+import { AnswerCont, QuestionCont, TitleType } from "./Interfaces";
 
 export type ButtonEvent = React.MouseEvent<HTMLButtonElement>;
 export type SpanEvent = React.MouseEvent<HTMLSpanElement>;
@@ -18,11 +18,19 @@ export type AnswerProps = {
   onAnswerSelect: Dispatch<SetStateAction<AnswerCont>>;
   onAnswerListUpdate: Dispatch<SetStateAction<AnswerCont[]>>;
   };
-  export type DeleteProps = {
+  export type titleProps={
+    title:TitleType;
+    onTitleUpdate:Dispatch<SetStateAction<TitleType>>;
+  }
+  export type ButtonProps={
+    btn_size?: 'small' | 'medium' | 'large';
+    btn_label?:string
+    tooltip?:string;
+  }
+  export interface DeleteProps  {
     currItem: AnswerCont|QuestionCont;
     onSetItem: Dispatch<SetStateAction<AnswerCont[]>>| Dispatch<SetStateAction<QuestionCont[]>>;
-    btn_size?: 'small' | 'medium' | 'large';
-  };
+  }
   export type EditProps = {
     currentQuestion: QuestionCont;
     selectedQuestion:QuestionCont;
@@ -30,13 +38,10 @@ export type AnswerProps = {
     onAnswerSelect: Dispatch<SetStateAction<AnswerCont>>;
     onQuestionSelect: Dispatch<SetStateAction<QuestionCont>>;
     onAnswersListSelect: Dispatch<SetStateAction<AnswerCont[]>>;
-    btn_size?: 'small' | 'medium' | 'large';
   };
   export type AddProps={
     listItemIndex:number;
     onSetItem: Dispatch<SetStateAction<AnswerCont[]>>| Dispatch<SetStateAction<QuestionCont[]>>;
     getSampleData: () => AnswerCont | QuestionCont;
-    btn_size?: 'small' | 'medium' | 'large';
-    btn_label?:string
   }
   export type inputData=AnswerCont|QuestionCont;

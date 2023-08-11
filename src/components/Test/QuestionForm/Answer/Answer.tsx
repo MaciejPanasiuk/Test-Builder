@@ -1,4 +1,4 @@
-import {AnswerProps } from "../../../Interfaces/types";
+import {AnswerProps } from "../../../../Interfaces/types";
 
 function Answer({
   currentAnswer,
