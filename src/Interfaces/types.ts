@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
-import { AnswerCont, QuestionCont, TitleType } from "./Interfaces";
+import { AnswerCont, QuestionCont, TitleType } from "../../common/Interfaces";
 
 export type ButtonEvent = React.MouseEvent<HTMLButtonElement>;
 export type SpanEvent = React.MouseEvent<HTMLSpanElement>;

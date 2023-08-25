@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+        "target": "es2016",
+        "module": "NodeNext", 
+        "moduleResolution": "node",                            
+        "baseUrl": "src",                               /* Skip type checking all .d.ts files. */
+        "outDir": "dist", 
+        "sourceMap": true,
+        "noImplicitAny": true, 
+        "forceConsistentCasingInFileNames": true,            /* Ensure that casing is correct in imports. */
+        "strict": true,                                      /* Enable all strict type-checking options. */
+        "skipLibCheck": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "noFallthroughCasesInSwitch": true,                                 /* Skip type checking all .d.ts files. */
+    },
+    "include":["src/**/*"],
+  }
+  

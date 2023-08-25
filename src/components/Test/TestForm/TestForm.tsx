@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback, useMemo } from "react";
 import {sampleTest } from "../../../Data/const";
-import { AnswerCont, QuestionCont, TitleType } from "../../../Interfaces/Interfaces";
+import { AnswerCont, QuestionCont, TitleType } from "../../../../common/Interfaces";
 import Question from "../QuestionForm/Question/Question";
 import DeleteButton from "../../Buttons/DeleteButton/DeleteButton";
 import Answer from "../QuestionForm/Answer/Answer";

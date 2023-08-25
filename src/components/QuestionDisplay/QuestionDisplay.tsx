@@ -3,7 +3,7 @@ import { sampleTest } from "../../Data/const";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import "./QuestionDisplay.scss"
-import { QuestionContainer } from "../../Interfaces/Interfaces";
+import { QuestionContainer } from "../../../common/Interfaces";
 
 interface Answer {
   Id: string;

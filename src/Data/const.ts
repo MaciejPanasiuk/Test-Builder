@@ -1,4 +1,4 @@
-import { AnswerCont, QuestionCont } from "../Interfaces/Interfaces";
+import { AnswerCont, QuestionCont } from "../../common/Interfaces";
 
 export const sampleTest: QuestionCont[] = [
   {

@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
-import { AnswerCont, QuestionCont } from "../Interfaces/Interfaces";
+import { AnswerCont, QuestionCont } from "../../common/Interfaces";
 
 export const createSampleQuestionForm = (numOfAnswers = 4): QuestionCont => {
     const SampleAnswers: AnswerCont[] = Array.from(
