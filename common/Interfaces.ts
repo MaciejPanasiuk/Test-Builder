@@ -13,6 +13,7 @@ export interface AnswerCont {
     title:TitleType;
     creationTime?:Date;
     updateTime?:Date;
+    owner?:string;
     questions:Array<QuestionCont>
   }
   export interface TitleType{

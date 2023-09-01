@@ -1,6 +1,12 @@
-import { AnswerCont, QuestionCont } from "../../common/Interfaces";
+import { AnswerCont, QuestionCont, TestCont, TitleType } from "../../common/Interfaces";
+import { getSampleTitle } from "./sampleDataFunctions";
 
-export const sampleTest: QuestionCont[] = [
+
+export const sampleTitle:TitleType={
+  titleText:"Sample Test with 5 questions",
+  isActive:false
+}
+export const sampleQuestions: QuestionCont[] = [
   {
     isActive:true,
     Id: `1`,
@@ -76,6 +82,10 @@ export const sampleTest: QuestionCont[] = [
     ],
   },
 ];
+export const SAMPLE_TEST:TestCont={
+  title:sampleTitle,
+  questions:sampleQuestions,
+}
 
 export const AnswerSample={
   Id: '1',
@@ -92,4 +102,7 @@ export const QuestionSample: QuestionCont = {
   questionText: "new question text",
   answers: AnswersListSample,
 };
-
+export const EMPTY_TEST:TestCont={
+  title:getSampleTitle(),
+  questions:[]
+}

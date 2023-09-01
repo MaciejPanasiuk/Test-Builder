@@ -1,6 +1,9 @@
 import { useEffect, useState, useCallback, useMemo } from "react";
-import {sampleTest } from "../../../Data/const";
-import { AnswerCont, QuestionCont, TitleType } from "../../../../common/Interfaces";
+import {
+  AnswerCont,
+  QuestionCont,
+  TitleType,
+} from "../../../../common/Interfaces";
 import Question from "../QuestionForm/Question/Question";
 import DeleteButton from "../../Buttons/DeleteButton/DeleteButton";
 import Answer from "../QuestionForm/Answer/Answer";
@@ -8,29 +11,41 @@ import QuestionWithAnswers from "../QuestionForm/QuestionWithAnswers/QuestionWit
 import "./TestForm.scss";
 import EditButton from "../../Buttons/EditButton/EditButton";
 import AddButton from "../../Buttons/AddButton/AddButton";
-import { createAnswerSample, createSampleQuestionForm, getSampleTitle } from "../../../Data/sampleDataFunctions";
+import {
+  createAnswerSample,
+  createSampleQuestionForm,
+} from "../../../Data/sampleDataFunctions";
 import Title from "../Title/Title";
+import { TestProps } from "../../../Interfaces/types";
+import { EMPTY_TEST, QuestionSample } from "../../../Data/const";
+import TestOptions from "../TestOptions/TestOptions";
 
-function TestForm() {
-  const [Test, setTest] = useState<QuestionCont[]>(sampleTest);
+function TestForm({ currentTest = EMPTY_TEST, isSubmitted,onSetIsSubmitted }: TestProps) {
+  const { questions, title } = currentTest;
+  const isTestEmpty = () => {
+    return questions.length === 0;
+  };
+
+  const [QuestionList, setQuestionList] = useState<QuestionCont[]>(questions);
   const [selectedQuestion, setSelectedQuestion] = useState<QuestionCont>(
-    sampleTest[0]
+    isTestEmpty() ? createSampleQuestionForm() : questions[0]
   );
   const [selectedAnswerList, setselectedAnswerList] = useState<AnswerCont[]>(
-    sampleTest[0].answers
+    isTestEmpty() ? selectedQuestion.answers : questions[0].answers
   );
   const [selectedAnswer, setSelectedAnswer] = useState<AnswerCont>(
-    sampleTest[0].answers[0]
+    isTestEmpty() ? selectedQuestion.answers[0] : questions[0].answers[0]
   );
-  const[currentTitle,setCurrentTitle]=useState<TitleType>(getSampleTitle);
+
+  const [currentTitle, setCurrentTitle] = useState<TitleType>(title);
 
   const memoizedSelectedQuestion = useMemo(
     () => selectedQuestion,
     [selectedQuestion]
   );
   const updateTest = useCallback(() => {
-    setTest((prevTest) => {
-      const testClone = structuredClone(prevTest);
+    setQuestionList((prevQuestionList) => {
+      const testClone = structuredClone(prevQuestionList);
       const testIndex = testClone.findIndex(
         (question) => question.Id === selectedQuestion.Id
       );
@@ -39,9 +54,15 @@ function TestForm() {
     });
   }, [selectedQuestion]);
 
+  // useEffect(() => {//something
+  //   setSelectedQuestion(questions[0] ?? QuestionSample);
+  //   setselectedAnswerList(questions[0].answers ?? QuestionSample.answers);
+  //   setSelectedAnswer(questions[0].answers[0] ?? QuestionSample.answers[0]);
+  // }, [currentTest,questions]);
+
   useEffect(() => {
     updateTest();
-    console.log(`i do stuff test`);
+    // console.log(`i do stuff test`);
   }, [memoizedSelectedQuestion, updateTest]);
 
   useEffect(() => {
@@ -49,14 +70,27 @@ function TestForm() {
       const questionClone = structuredClone(prevQuestion);
       return { ...questionClone, answers: selectedAnswerList };
     });
-    console.log(`i do stuff ans`);
+    // console.log(`i do stuff ans`);
   }, [selectedAnswerList]);
 
   return (
     <div>
+      <TestOptions
+        onSetTest={setQuestionList}
+        onSetTitle={setCurrentTitle}
+        onSetSelectedQuestion={setSelectedQuestion}
+        onSetselectedAnswerList={setselectedAnswerList}
+        onSetSelectedAnswer={setSelectedAnswer}
+        onSetIsSubmitted={onSetIsSubmitted}
+        currentTest={{
+          questions: structuredClone(QuestionList),
+          title: structuredClone(currentTitle),
+        }}
+        isSubmitted={isSubmitted}
+      />
       <form>
         <Title title={currentTitle} onTitleUpdate={setCurrentTitle} />
-        {Test.map((currentQuestion, Queindex) => (
+        {QuestionList.map((currentQuestion, Queindex) => (
           <QuestionWithAnswers onMouseOver key={`${currentQuestion.Id}`}>
             <div>
               <div
@@ -68,7 +102,7 @@ function TestForm() {
                   currentQuestion={currentQuestion}
                   selectedQuestion={selectedQuestion}
                   onQuestionSelect={setSelectedQuestion}
-                  onQuestionUpdate={setTest}
+                  onQuestionUpdate={setQuestionList}
                 />
               </div>
               <div>
@@ -93,28 +127,28 @@ function TestForm() {
                             currItem={currentAnswer}
                             onSetItem={setselectedAnswerList}
                             btn_size={"small"}
-                            tooltip={'Delete Answer'}
+                            tooltip={"Delete Answer"}
                           />
                           <AddButton
                             getSampleData={createAnswerSample}
                             listItemIndex={AnsIndex}
                             onSetItem={setselectedAnswerList}
                             btn_size={"small"}
-                            tooltip={'Add Answer Below'}
+                            tooltip={"Add Answer Below"}
                           />
                         </>
                       )}
                     </div>
                   ))}
-                {currentQuestion.answers.length === 0 && (
-                  <AddButton
-                    getSampleData={createAnswerSample}
-                    listItemIndex={0}
-                    onSetItem={setselectedAnswerList}
-                    btn_size={"small"}
-                    btn_label={'Add Answer'}
-                  />
-                )}
+                  {currentQuestion.answers.length === 0 && (
+                    <AddButton
+                      getSampleData={createAnswerSample}
+                      listItemIndex={0}
+                      onSetItem={setselectedAnswerList}
+                      btn_size={"small"}
+                      btn_label={"Add Answer"}
+                    />
+                  )}
                 </ol>
               </div>
             </div>
@@ -122,37 +156,38 @@ function TestForm() {
               <EditButton
                 currentQuestion={currentQuestion}
                 selectedQuestion={selectedQuestion}
-                onSetTest={setTest}
+                onSetTest={setQuestionList}
                 onAnswerSelect={setSelectedAnswer}
                 onQuestionSelect={setSelectedQuestion}
                 onAnswersListSelect={setselectedAnswerList}
                 btn_size={"large"}
-                tooltip={'Edit Question'}
+                tooltip={"Edit Question"}
               />
               <DeleteButton
                 currItem={currentQuestion}
-                onSetItem={setTest}
+                onSetItem={setQuestionList}
                 btn_size={"large"}
-                tooltip={'Edit Question'}
+                tooltip={"Edit Question"}
               />
               <AddButton
                 getSampleData={createSampleQuestionForm}
                 listItemIndex={Queindex}
-                onSetItem={setTest}
+                onSetItem={setQuestionList}
                 btn_size={"large"}
-                tooltip={'Add Question'}
+                tooltip={"Add Question"}
               />
             </div>
           </QuestionWithAnswers>
         ))}
-{Test.length<=0 && <AddButton
-                getSampleData={createSampleQuestionForm}
-                listItemIndex={Test.length-1}
-                onSetItem={setTest}
-                btn_size={"large"}
-                btn_label={'Add your first Question'}
-              />}
-              
+        {QuestionList.length <= 0 && (
+          <AddButton
+            getSampleData={createSampleQuestionForm}
+            listItemIndex={QuestionList.length - 1}
+            onSetItem={setQuestionList}
+            btn_size={"large"}
+            btn_label={"Add your first Question"}
+          />
+        )}
       </form>
     </div>
   );

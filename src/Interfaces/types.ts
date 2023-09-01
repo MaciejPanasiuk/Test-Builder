@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
-import { AnswerCont, QuestionCont, TitleType } from "../../common/Interfaces";
+import { AnswerCont, QuestionCont, TestCont, TitleType } from "../../common/Interfaces";
 
 export type ButtonEvent = React.MouseEvent<HTMLButtonElement>;
 export type SpanEvent = React.MouseEvent<HTMLSpanElement>;
@@ -44,4 +44,31 @@ export type AnswerProps = {
     onSetItem: Dispatch<SetStateAction<AnswerCont[]>>| Dispatch<SetStateAction<QuestionCont[]>>;
     getSampleData: () => AnswerCont | QuestionCont;
   }
+  export type TestProps={
+    currentTest:TestCont;
+    isSubmitted:boolean;
+    onSetIsSubmitted:Dispatch<SetStateAction<boolean>>;
+  }
+  export type LoaderProps={
+    TestToLoad:TestCont;
+  }
+  export type ConvertProps={
+    TestToConvert:TestCont
+  }
+  export type TestOptionsProps={
+    currentTest:TestCont;
+    isSubmitted:boolean;
+    onSetTest: Dispatch<SetStateAction<QuestionCont[]>>;
+    onSetTitle:Dispatch<SetStateAction<TitleType>>;
+    onSetSelectedQuestion:Dispatch<SetStateAction<QuestionCont>>;
+    onSetselectedAnswerList:Dispatch<SetStateAction<AnswerCont[]>>;
+    onSetSelectedAnswer:Dispatch<SetStateAction<AnswerCont>>;
+    onSetIsSubmitted:Dispatch<SetStateAction<boolean>>;
+  }
+  // export type TestOptionsProps={
+  //   currentTest:TestCont;
+  //   isSubmitted:boolean;
+  //   onSetTest: Dispatch<SetStateAction<TestCont>>;
+  //   onSetIsSubmitted:Dispatch<SetStateAction<boolean>>;
+  // }
   export type inputData=AnswerCont|QuestionCont;

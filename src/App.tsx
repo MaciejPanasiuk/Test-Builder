@@ -1,14 +1,17 @@
 // import  QuestionDisplay from './components/QuestionDisplay/QuestionDisplay'
-import './App.css'
-import Header from './components/Header/Header'
-import TestForm from './components/Test/TestForm/TestForm'
+import { Outlet } from "react-router-dom";
+import "./App.css";
+import DashBoard from "./components/DashBoard/DashBoard";
+import Header from "./components/Header/Header";
 
 function App() {
-
-
   return (
-    <TestForm/>
-  )
+    <>
+      <Header />
+      <DashBoard />
+      <Outlet />
+    </>
+  );
 }
 
-export default App
+export default App;

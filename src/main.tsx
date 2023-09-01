@@ -4,20 +4,26 @@ import App from './App.tsx'
 import './index.css'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import Page404 from './components/Page404/Page404.tsx'
-import Header from './components/Header/Header.tsx'
-import IntroPage from './components/IntroPage/IntroPage.tsx'
+import TestLoader from './components/Test/TestLoader/TestLoader.tsx'
+import About from './components/DashBoard/Options/About/About.tsx'
+import { EMPTY_TEST } from './Data/const.ts'
 
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <IntroPage />,
+    element: <><App/></>,
     errorElement: <Page404 />,
-  },
-  {
-    path: "/Test",
-    element: <><Header/><App/></>,
-    children: [],
+    children:[
+      {
+        path: "Test",
+        element: <TestLoader TestToLoad={EMPTY_TEST}/>, 
+      },
+      {
+        path: "About",
+        element: <About/>, 
+      },
+    ]
   },
   {
     path: "*",
