@@ -17,10 +17,12 @@ import {
 } from "../../../Data/sampleDataFunctions";
 import Title from "../Title/Title";
 import { TestProps } from "../../../Interfaces/types";
-import { EMPTY_TEST, QuestionSample } from "../../../Data/const";
+import { EMPTY_TEST } from "../../../Data/const";
 import TestOptions from "../TestOptions/TestOptions";
+import SaveToPDF from "../../SaveToPDF/SaveToPDF";
 
-function TestForm({ currentTest = EMPTY_TEST, isSubmitted,onSetIsSubmitted }: TestProps) {
+// function TestForm({ currentTest = EMPTY_TEST, isSubmitted,onSetIsSubmitted }: TestProps) {
+  function TestForm({ currentTest = EMPTY_TEST}: TestProps) {
   const { questions, title } = currentTest;
   const isTestEmpty = () => {
     return questions.length === 0;
@@ -39,6 +41,8 @@ function TestForm({ currentTest = EMPTY_TEST, isSubmitted,onSetIsSubmitted }: Te
 
   const [currentTitle, setCurrentTitle] = useState<TitleType>(title);
 
+  const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
+
   const memoizedSelectedQuestion = useMemo(
     () => selectedQuestion,
     [selectedQuestion]
@@ -54,15 +58,8 @@ function TestForm({ currentTest = EMPTY_TEST, isSubmitted,onSetIsSubmitted }: Te
     });
   }, [selectedQuestion]);
 
-  // useEffect(() => {//something
-  //   setSelectedQuestion(questions[0] ?? QuestionSample);
-  //   setselectedAnswerList(questions[0].answers ?? QuestionSample.answers);
-  //   setSelectedAnswer(questions[0].answers[0] ?? QuestionSample.answers[0]);
-  // }, [currentTest,questions]);
-
   useEffect(() => {
     updateTest();
-    // console.log(`i do stuff test`);
   }, [memoizedSelectedQuestion, updateTest]);
 
   useEffect(() => {
@@ -70,7 +67,6 @@ function TestForm({ currentTest = EMPTY_TEST, isSubmitted,onSetIsSubmitted }: Te
       const questionClone = structuredClone(prevQuestion);
       return { ...questionClone, answers: selectedAnswerList };
     });
-    // console.log(`i do stuff ans`);
   }, [selectedAnswerList]);
 
   return (
@@ -81,14 +77,17 @@ function TestForm({ currentTest = EMPTY_TEST, isSubmitted,onSetIsSubmitted }: Te
         onSetSelectedQuestion={setSelectedQuestion}
         onSetselectedAnswerList={setselectedAnswerList}
         onSetSelectedAnswer={setSelectedAnswer}
-        onSetIsSubmitted={onSetIsSubmitted}
+        onSetIsSubmitted={setIsSubmitted}
         currentTest={{
           questions: structuredClone(QuestionList),
           title: structuredClone(currentTitle),
         }}
         isSubmitted={isSubmitted}
       />
-      <form>
+      {isSubmitted ? <SaveToPDF TestToConvert={{
+          questions: structuredClone(QuestionList),
+          title: structuredClone(currentTitle),
+        }}/> : <form>
         <Title title={currentTitle} onTitleUpdate={setCurrentTitle} />
         {QuestionList.map((currentQuestion, Queindex) => (
           <QuestionWithAnswers onMouseOver key={`${currentQuestion.Id}`}>
@@ -188,7 +187,7 @@ function TestForm({ currentTest = EMPTY_TEST, isSubmitted,onSetIsSubmitted }: Te
             btn_label={"Add your first Question"}
           />
         )}
-      </form>
+      </form>}
     </div>
   );
 }

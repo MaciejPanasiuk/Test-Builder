@@ -23,7 +23,7 @@ const createNewUser = async (req: Request, res: Response) => {
   } else if (newAccount === null) {
     console.log("validation failed");
     res.statusCode = status.BAD_REQUEST;
-    res.status(400).send(`status ${res.statusCode} Missing Account parameters`);
+    res.status(400).send(`status ${res.statusCode} userName taken`);
   }
 };
 const readAllAccountsInfo = async (req: Request, res: Response) => {

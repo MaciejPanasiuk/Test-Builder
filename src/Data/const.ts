@@ -106,3 +106,4 @@ export const EMPTY_TEST:TestCont={
   title:getSampleTitle(),
   questions:[]
 }
+export const BASE_API_URL='http://localhost:4700'

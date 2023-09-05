@@ -1,5 +1,9 @@
 import { Dispatch, SetStateAction } from "react";
-import { AnswerCont, QuestionCont, TestCont, TitleType } from "../../common/Interfaces";
+import { AnswerCont, QuestionCont, TestCont, TitleType, Validators } from "../../common/Interfaces";
+import { FieldError, LiteralUnion, UseFormRegisterReturn } from "react-hook-form";
+import { SxProps, Theme } from "@mui/material";
+
+
 
 export type ButtonEvent = React.MouseEvent<HTMLButtonElement>;
 export type SpanEvent = React.MouseEvent<HTMLSpanElement>;
@@ -64,6 +68,13 @@ export type AnswerProps = {
     onSetselectedAnswerList:Dispatch<SetStateAction<AnswerCont[]>>;
     onSetSelectedAnswer:Dispatch<SetStateAction<AnswerCont>>;
     onSetIsSubmitted:Dispatch<SetStateAction<boolean>>;
+  }
+  export type InputProps={
+    registerRequirements:UseFormRegisterReturn<"userName"| "password"| "supportQuestion"| "supportAnswer">
+    labelText:string;
+  ValidationError:FieldError | undefined;
+  customErrorMessages:any;//resolve this
+  fieldSize?: SxProps<Theme> | undefined;
   }
   // export type TestOptionsProps={
   //   currentTest:TestCont;

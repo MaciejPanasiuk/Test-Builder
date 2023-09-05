@@ -29,3 +29,8 @@ export interface AnswerCont {
     creationTime?:Date;
     updateTime?:Date;
   }
+export interface Validators{
+    required?: string;
+    maxLength?: string;
+    pattern?: string;
+}
