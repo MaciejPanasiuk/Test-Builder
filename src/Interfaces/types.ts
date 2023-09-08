@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from "react";
-import { AnswerCont, QuestionCont, TestCont, TitleType, Validators } from "../../common/Interfaces";
-import { FieldError, LiteralUnion, UseFormRegisterReturn } from "react-hook-form";
+import { AnswerCont, QuestionCont, TestCont, TitleType } from "../../common/Interfaces";
+import { FieldError, UseFormRegisterReturn } from "react-hook-form";
 import { SxProps, Theme } from "@mui/material";
 
 
@@ -73,6 +73,7 @@ export type AnswerProps = {
     registerRequirements:UseFormRegisterReturn<"userName"| "password"| "supportQuestion"| "supportAnswer">
     labelText:string;
   ValidationError:FieldError | undefined;
+  serverError?:FieldError;
   customErrorMessages:any;//resolve this
   fieldSize?: SxProps<Theme> | undefined;
   }

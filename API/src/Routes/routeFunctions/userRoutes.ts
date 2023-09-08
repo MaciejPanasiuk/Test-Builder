@@ -23,7 +23,7 @@ const createNewUser = async (req: Request, res: Response) => {
   } else if (newAccount === null) {
     console.log("validation failed");
     res.statusCode = status.BAD_REQUEST;
-    res.status(400).send(`status ${res.statusCode} userName taken`);
+    res.status(400).send(`User name taken`);
   }
 };
 const readAllAccountsInfo = async (req: Request, res: Response) => {
@@ -32,12 +32,12 @@ const readAllAccountsInfo = async (req: Request, res: Response) => {
   if (users === null) {
     res.statusCode = status.UNAUTHORIZED;
     console.log("Access to all data denied");
-    res.status(401).send(` status ${res.statusCode} Access to all data denied`);
+    res.status(401).send(`Access to all data denied`);
   } else if (users.length > 0) {
     res.send(users);
   } else {
     res.statusCode = status.NOT_FOUND;
-    res.status(404).send(` status ${res.statusCode} no results found`);
+    res.status(404).send(`no results found`);
   }
 };
 const readAccountInfo = async (req: Request, res: Response) => {
@@ -56,21 +56,21 @@ const readAccountInfo = async (req: Request, res: Response) => {
           res.send(accountInfo);
         } else {
           console.log(`password incorrect`);
-          res.status(401).send(` status ${res.statusCode} incorrect password`);
+          res.status(401).send(`incorrect password`);
         }
       } 
       else {
         res.statusCode = status.NOT_FOUND;
-        res.status(404).send(` status ${res.statusCode} account doesnt exist`);
+        res.status(404).send(`account doesnt exist`);
       }
     } else {
       res.statusCode = status.BAD_REQUEST;
-      res.status(400).send(`status ${res.statusCode} Incorrect input`);
+      res.status(400).send(`Incorrect input`);
     }
   } catch (error) {
     res.statusCode = status.INTERNAL_SERVER_ERROR;
     console.log(error);
-    res.status(500).send(`${res.statusCode} Internal server Error`);
+    res.status(500).send(`Internal server Error`);
   }
 };
 const updateAccountInfo = async (req: Request, res: Response) => {
@@ -91,14 +91,14 @@ const updateAccountInfo = async (req: Request, res: Response) => {
         res
           .status(409)
           .send(
-            `status ${res.statusCode}: update matches the document,no update needed`
+            `update matches the document,no update needed`
           );
       }
     }
   } else {
     res.statusCode = status.NOT_FOUND;
-    console.log(` status ${res.statusCode} User not found`);
-    res.status(404).send(` status ${res.statusCode} User not found`);
+    console.log(`User not found`);
+    res.status(404).send(` User not found`);
   }
 };
 const deleteAccount = async (req: AuthRequest, res: Response) => {

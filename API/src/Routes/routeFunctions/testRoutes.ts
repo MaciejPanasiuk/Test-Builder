@@ -40,7 +40,7 @@ const createNewTest=async (req:Request, res:Response) => {
     const userName = req.params.userName;
     try {
       if (userName) {
-        const allUserTests = await getAllTests(userName);
+        const allUserTests = await getAllTests('',userName);
         if (allUserTests) {
           console.log(`get all tests of user ${userName}`);
           res.send(allUserTests);
@@ -84,7 +84,7 @@ const createNewTest=async (req:Request, res:Response) => {
   const updateSpecificTestOfUser=async (req:Request, res:Response) => {
     const newTest = req.body;
     const { userName,testId } = req.params;
-    const updateInfo = await updateTest(userName, newTest);
+    const updateInfo = await updateTest(userName,testId, newTest);
     if (updateInfo.matchedCount === 1) {
       if (updateInfo.matchedCount === 1) {
         if (updateInfo.modifiedCount === 1) {

@@ -7,8 +7,8 @@ export default function Dashboard() {
     <div className="DashboardContainer">          
     <button onClick={()=>navigate(`/About`)}>About</button>
     <button onClick={()=>navigate("/Test")}>Create a Test</button> 
-    <button onClick={()=>navigate("/SignIn")}>Log in</button>
-    <button onClick={()=>navigate("/SignIn")}>Sign In</button>
+    <button onClick={()=>navigate("/Account/SignIn")}>Log in</button>
+    <button onClick={()=>navigate("/Account/SignIn")}>Sign In</button>
     </div>
   );
 }

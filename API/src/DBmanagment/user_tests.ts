@@ -17,7 +17,7 @@ async function addNewTest(testInput: TestCont, loginInput: string) {
     }
   }
   }
-  async function getAllTests(password: string='',loginInput:string='') {
+  async function getAllTests(password='',loginInput='') {
     if (password === process.env.DB_USERS_PASSWORD) {
       return await TestModel.find();
     } 
@@ -29,10 +29,10 @@ async function addNewTest(testInput: TestCont, loginInput: string) {
   async function getTest(loginInput: string,testId:string){
     return await TestModel.findOne({ owner: loginInput,Id:testId });
   }
-  async function updateTest(loginInput: string,updates:TestCont){//nested things dont update
+  async function updateTest(loginInput: string,testId:string,updates:TestCont){//nested things dont update
     const updateclone=structuredClone(updates)
     // return await TestModel.updateOne({ owner: loginInput },updateclone);
-    return await TestModel.updateOne({ owner: loginInput },{$set:updateclone});
+    return await TestModel.updateOne({ owner: loginInput ,Id:testId },{$set:updateclone});
   }
   async function deleteTest(loginInput: string,testId:string){
     console.log(`Deleting Test of user : ${loginInput}`);

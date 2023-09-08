@@ -68,7 +68,7 @@ const OwnerExistenceCheckMiddleware=async(  req: Request,
   if(ownerCheck===null){
     res.statusCode = status.NOT_FOUND;
       console.log("User not found");
-      res.status(404).send(`Status ${res.statusCode} Saving failed. User doesnt exist`);
+      res.status(404).send(`User doesnt exist`);
   }else if (ownerCheck) {
     next();}
 
