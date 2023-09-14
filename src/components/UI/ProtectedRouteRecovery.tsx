@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+
 interface ProtectedRouteRecoveryProps {
     children: ReactNode;
   }
