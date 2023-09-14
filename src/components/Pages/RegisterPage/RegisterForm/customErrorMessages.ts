@@ -7,8 +7,10 @@ export const userNameErrorMessages = {
     required: "This field is required",
     minLength: "password must have at least 8 characters",
     pattern: "password should not contain empty spaces",
+    validate:'passwords dont match'
   };
   export const recoveryErrorMessage = {
     required: "This field is required",
     maxLength: "Question/Answer must be less than 200 characters",
   };
+

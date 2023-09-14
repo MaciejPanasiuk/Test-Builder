@@ -31,7 +31,6 @@ async function addNewTest(testInput: TestCont, loginInput: string) {
   }
   async function updateTest(loginInput: string,testId:string,updates:TestCont){//nested things dont update
     const updateclone=structuredClone(updates)
-    // return await TestModel.updateOne({ owner: loginInput },updateclone);
     return await TestModel.updateOne({ owner: loginInput ,Id:testId },{$set:updateclone});
   }
   async function deleteTest(loginInput: string,testId:string){

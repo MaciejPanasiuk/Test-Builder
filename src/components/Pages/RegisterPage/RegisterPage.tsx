@@ -1,5 +1,4 @@
 import { Outlet } from "react-router-dom";
-import RegisterForm from "./RegisterForm/RegisterForm";
 import './RegistrationPage.scss'
 
 export default function RegisterPage() {

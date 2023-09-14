@@ -34,14 +34,13 @@ export interface Validators{
     maxLength?: string;
     pattern?: string;
 }
-export interface registerParams{
+export interface RegisterParams{
   userName: string;
   password: string;
   supportQuestion: string;
   supportAnswer: string;
 }
-export interface loginParams{
+export interface LoginParams{
   userName:string;
   password:string;
-  
 }

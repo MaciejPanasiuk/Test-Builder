@@ -70,17 +70,30 @@ export type AnswerProps = {
     onSetIsSubmitted:Dispatch<SetStateAction<boolean>>;
   }
   export type InputProps={
-    registerRequirements:UseFormRegisterReturn<"userName"| "password"| "supportQuestion"| "supportAnswer">
+    registerRequirements:UseFormRegisterReturn<string>
     labelText:string;
   ValidationError:FieldError | undefined;
   serverError?:FieldError;
   customErrorMessages:any;//resolve this
   fieldSize?: SxProps<Theme> | undefined;
+  disabled?:boolean;
   }
-  // export type TestOptionsProps={
-  //   currentTest:TestCont;
-  //   isSubmitted:boolean;
-  //   onSetTest: Dispatch<SetStateAction<TestCont>>;
-  //   onSetIsSubmitted:Dispatch<SetStateAction<boolean>>;
-  // }
+  export type SnackBarProps={
+    isSnackBarOpen:boolean;
+    onSetisSnackBarOpen:Dispatch<SetStateAction<boolean>>;
+    errorMessage:string;
+
+  }
+  export type RecAnswerProps={
+    userName:string;
+    recoveryAnswer:string;
+  }
+  export type PasswordResetProps={
+    userName:string;
+    newPassword:string;
+  }
+  export type cachedBasicVar= {
+    data: string
+  }|undefined
+
   export type inputData=AnswerCont|QuestionCont;

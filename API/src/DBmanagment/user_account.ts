@@ -32,6 +32,14 @@ async function addNewAccount(loginInput: UserAccount) {
   async function getAccountInfo(loginInput: string) {
     return await UserModel.findOne({ userName: loginInput});
   }
+  async function validateAnswer(loginInput: string, supportAnswer:string) {
+    const accountInfo= await UserModel.findOne({ userName: loginInput});
+    if(accountInfo)
+    return accountInfo.supportAnswer===supportAnswer;
+  else{
+    return null;
+  }
+  }
   async function patchAccountInfo(loginInput: string,updates:UserAccount){
     return await UserModel.updateOne({ userName: loginInput }, { $set: updates });
   }
@@ -45,4 +53,5 @@ async function addNewAccount(loginInput: UserAccount) {
     getAccountInfo,
     patchAccountInfo,
     deleteAccountFromDB,
+    validateAnswer,
   };

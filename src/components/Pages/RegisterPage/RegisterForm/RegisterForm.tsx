@@ -1,60 +1,46 @@
-import { Button } from "@mui/material";
+import { Button, CircularProgress } from "@mui/material";
 import { useForm } from "react-hook-form";
-import FormInput from "../Input/FormInput";
+import FormInput from "../../../UI/Inputs/FormInput";
 import {
   passwordErrorMessages,
   recoveryErrorMessage,
   userNameErrorMessages,
 } from "./customErrorMessages";
-import axios from "axios";
-import { BASE_API_URL } from "../../../../Data/const";
-import { registerParams } from "../../../../../common/Interfaces";
 import { useNavigate } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
-import { getJWTTokens, logInUser } from "../../../../hooks/useLogin";
+import ErrorSnackbar from "../ErrorSnackBar/ErrorSnackBar";
+import { RegisterParams } from "../../../../../common/Interfaces";
+import { useRegister } from "../../../../hooks/useRegister";
+import PasswordInput from "../../../UI/Inputs/PasswordInput";
 
 export default function RegisterForm() {
   const navigate = useNavigate();
 
-  const registerUser= async(data:registerParams)=>{
-    const reqBody=JSON.stringify({...data,isAdmin:false});
-    try {
-      const registerRegularUser= await axios.post(BASE_API_URL+`/user/register`,reqBody,{headers:{'Content-Type': 'application/json'}})
-      if(registerRegularUser.status===200)
-      console.log('user registered succesfuly!')
-      navigate("/Account/Success")
-
-    } catch (error) {
-      if (axios.isAxiosError(error)){
-        if(error.response?.status===400){
-          setError('serverError', {
-            type: 'server',
-            message: error.response.data,
-          });
-        }
-      }
-      return;
-    }
-  }
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
-    setError,
   } = useForm({
     defaultValues: {
       userName: "",
       password: "",
       supportQuestion: "What is your favourite color?",
       supportAnswer: "Blue",
-      serverError: "",
     },
   });
-
-  logInUser('123','12341234')
+  const{register:RegisterUser, isLoading,showError,setShowError}=useRegister()
+  const handleRegisterUser = (data: RegisterParams) => {
+    if(!data.password || !data.userName || !data.supportQuestion || !data.supportAnswer) return;
+    RegisterUser(data,{onSuccess:()=>{
+      console.log('woho we registered!')
+      navigate("/Register/Success")
+  },onSettled:()=>{
+    reset();
+  }})
+  };
   return (
     <div>
-      <form onSubmit={handleSubmit((data) => registerUser(data))}>
+      <form onSubmit={handleSubmit((data) => handleRegisterUser(data))}>
         <FormInput
           registerRequirements={register("userName", {
             required: true,
@@ -63,11 +49,10 @@ export default function RegisterForm() {
           })}
           labelText="User Name"
           ValidationError={errors.userName}
-          serverError={errors.serverError}
           customErrorMessages={userNameErrorMessages}
           fieldSize={{ width: 1 / 2 }}
         />
-        <FormInput
+        <PasswordInput
           registerRequirements={register("password", {
             required: true,
             minLength: 8,
@@ -99,8 +84,13 @@ export default function RegisterForm() {
           fieldSize={{ width: 3 / 4 }}
         />
         <Button type="submit" variant="contained" sx={{ m: 2 }}>
-          Register
+        {!isLoading? 'Sign in':<CircularProgress />}
         </Button>
+        <ErrorSnackbar
+          isSnackBarOpen={showError}
+          onSetisSnackBarOpen={setShowError}
+          errorMessage="User Name already taken"
+        />
       </form>
     </div>
   );

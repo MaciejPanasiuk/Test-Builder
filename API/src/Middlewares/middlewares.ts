@@ -1,6 +1,8 @@
 import { doesUserExist, isPasswordCorrect } from "../DBmanagment/DBprimary";
 import status from "http-status";
 import { NextFunction, Request, Response } from "express";
+import { getAccountInfo } from "../DBmanagment/user_account";
+import bcrypt from "bcrypt";
 
 
 const AuthMiddleware = async (
@@ -57,7 +59,7 @@ const isBodyEmptyMiddleware  = async (
     res.statusCode = status.BAD_REQUEST;
     res
       .status(400)
-      .send(`status ${res.statusCode} Cannot create an empty Test or Account`);
+      .send(`request body is empty`);
   }
 }
 const OwnerExistenceCheckMiddleware=async(  req: Request,
@@ -74,5 +76,30 @@ const OwnerExistenceCheckMiddleware=async(  req: Request,
 
 
 }
+const isOldAndNewTheSameMiddleware=async(  req: Request,
+  res: Response,
+  next: NextFunction)=>{
+    const {password}=req.body;
+    const { userName } = req.params;
+    const oldAccountInfo=await getAccountInfo(userName)
+    if(oldAccountInfo){
+      const doPasswordsMatch=bcrypt.compareSync(
+        password,
+        oldAccountInfo.password
+      );
+      if(doPasswordsMatch)
+{      console.log('old and new passwords match')
+      res.status(304)
+      res.send('new password cannot be the same as old password')}
+      else{
+        next()
+      }
+    }
+    else{
+      res.statusCode = status.NOT_FOUND;
+      res.status(404).send(`account doesnt exist`);
+    }
+    
+  }
 
-export { AuthMiddleware,isBodyEmptyMiddleware,OwnerExistenceCheckMiddleware };
+export { AuthMiddleware,isBodyEmptyMiddleware,OwnerExistenceCheckMiddleware,isOldAndNewTheSameMiddleware };

@@ -12,13 +12,20 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import RegisterForm from "./components/Pages/RegisterPage/RegisterForm/RegisterForm.tsx";
 import SuccesfulRegister from "./components/Pages/RegisterPage/SuccesfulRegister/SuccesfulRegister.tsx";
+import LoginPage from "./components/Pages/LoginPage/LoginPage.tsx";
+import LoginForm from "./components/Pages/LoginPage/LoginForm/LoginForm.tsx";
+import PasswordRecoveryPage from "./components/Pages/PasswordRecoveryPage/PasswordRecoveryPage.tsx";
+import RecoveryQuestion from "./components/Pages/PasswordRecoveryPage/RecoveryQuestion/RecoveryQuestion.tsx";
+import ResetPassword from "./components/Pages/PasswordRecoveryPage/ResetPassword/ResetPassword.tsx";
+import RecoverySuccess from "./components/Pages/PasswordRecoveryPage/RecoverySuccess/RecoverySuccess.tsx";
+import ProtectedRouteRecovery from "./components/UI/ProtectedRouteRecovery.tsx";
 
 const queryClient = new QueryClient({
-  defaultOptions:{
-    queries:{
-      staleTime:60*60*1000
-    }
-  }
+  defaultOptions: {
+    queries: {
+      staleTime: 60 * 60 * 1000,
+    },
+  },
 });
 const router = createBrowserRouter([
   {
@@ -39,7 +46,7 @@ const router = createBrowserRouter([
         element: <About />,
       },
       {
-        path: "Account",
+        path: "Register",
         element: <RegisterPage />,
         children: [
           {
@@ -50,6 +57,26 @@ const router = createBrowserRouter([
             path: "Success",
             element: <SuccesfulRegister />,
           },
+        ],
+      },
+      {
+        path: "LogIn",
+        element: <LoginPage />,
+        children: [{ path: "Form", element: <LoginForm /> }],
+      },
+      {
+        path: "PasswordRecovery",
+        element: <ProtectedRouteRecovery><PasswordRecoveryPage /></ProtectedRouteRecovery>,
+        children: [
+          {
+            path: "Question",
+            element: <RecoveryQuestion />,
+          },
+          {
+            path: "Reset",
+            element: <ResetPassword />,
+          },
+          { path: "Success", element: <RecoverySuccess /> },
         ],
       },
     ],

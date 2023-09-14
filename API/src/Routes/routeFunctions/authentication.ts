@@ -66,8 +66,6 @@ const createTokenMiddleware = async (
   }
 };
 
-
-
 const refreshToken = async (req: AuthRequest, res: Response) => {
   //new one
 
@@ -84,10 +82,13 @@ const refreshToken = async (req: AuthRequest, res: Response) => {
       }
       generateAccessToken(user as userTokenInfo, res);
       generateRefreshToken(user as userTokenInfo, res);
+      if (req.headers.token === "ManualRefresh") {
+        console.log("refreshing tokens manualy");
+        return res.send("Tokens refreshed succesfuly");
+      }
     }
   );
 };
-
 
 const verifyTokenMiddleware = async (
   req: AuthRequest,
@@ -104,14 +105,18 @@ const verifyTokenMiddleware = async (
           return res.status(403).send(`Token not valid`);
         }
         req.user = decodedToken as userTokenInfo;
-        if( req.user.userName!==req.params.userName){
-          return res.status(403).send('Token doesnt match the user')
+        if (req.user.userName !== req.params.userName) {
+          return res.status(403).send("Token doesnt match the user");
         }
         console.log(` token verified!`);
         const tokenExpirationTime = decodedToken?.exp * 1000;
         const currentTime = Date.now();
         const refreshTreshhold = 5 * 60 * 1000;
-        console.log(`token time left ${tokenExpirationTime-currentTime}s, \n  refresh treshold: ${refreshTreshhold}s`)
+        console.log(
+          `token time left ${
+            tokenExpirationTime - currentTime
+          }s, \n  refresh treshold: ${refreshTreshhold}s`
+        );
         if (
           tokenExpirationTime &&
           tokenExpirationTime - currentTime <= refreshTreshhold

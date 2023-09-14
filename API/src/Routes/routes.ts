@@ -2,6 +2,7 @@ import {
   AuthMiddleware,
   OwnerExistenceCheckMiddleware,
   isBodyEmptyMiddleware,
+  isOldAndNewTheSameMiddleware,
 } from "../Middlewares/middlewares";
 import express from "express";
 import status from "http-status";
@@ -10,8 +11,10 @@ import dotenv from "dotenv";
 import {
   createNewUser,
   deleteAccount,
+  validateRecoveryAnswer,
   readAccountInfo,
   readAllAccountsInfo,
+  readRecoveryQuestion,
   updateAccountInfo,
 } from "./routeFunctions/userRoutes";
 import {
@@ -42,9 +45,11 @@ export async function serverRoutes(app: express.Application) {
     verifyTokenMiddleware,
     createNewTest
   );
-  app.post(`/users/:userName`,OwnerExistenceCheckMiddleware,createTokenMiddleware, readAccountInfo);
+  app.post(`/users/:userName`,OwnerExistenceCheckMiddleware, readAccountInfo,createTokenMiddleware);
+  app.post('/users/:userName/verifyAnswer',validateRecoveryAnswer)
   app.get("/tests", readAllTests);
   app.get("/users", readAllAccountsInfo);
+  app.get('/users/:userName/recovery',readRecoveryQuestion)
   app.get(`/users/:userName/tests/`,verifyTokenMiddleware, readAllUserTests);
   app.get(`/users/:userName/tests/:testId`,verifyTokenMiddleware, readSpecificTestOfUser);
   app.patch(
@@ -54,6 +59,11 @@ export async function serverRoutes(app: express.Application) {
     AuthMiddleware,
     updateAccountInfo
   );
+  app.patch('/users/:userName/recovery',
+  isBodyEmptyMiddleware,
+  isOldAndNewTheSameMiddleware,
+  updateAccountInfo
+  )
   app.patch(
     `/users/:userName/tests/:testId`,
     isBodyEmptyMiddleware,
