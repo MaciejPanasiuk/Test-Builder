@@ -5,7 +5,6 @@ import "./index.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Page404 from "./components/Pages/Page404/Page404.tsx";
 import TestLoader from "./components/Test/TestLoader/TestLoader.tsx";
-import About from "./components/DashBoard/Options/About/About.tsx";
 import { EMPTY_TEST } from "./Data/const.ts";
 import RegisterPage from "./components/Pages/RegisterPage/RegisterPage.tsx";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -19,6 +18,8 @@ import RecoveryQuestion from "./components/Pages/PasswordRecoveryPage/RecoveryQu
 import ResetPassword from "./components/Pages/PasswordRecoveryPage/ResetPassword/ResetPassword.tsx";
 import RecoverySuccess from "./components/Pages/PasswordRecoveryPage/RecoverySuccess/RecoverySuccess.tsx";
 import ProtectedRouteRecovery from "./components/UI/ProtectedRouteRecovery.tsx";
+import UserPanel from "./components/Pages/UserPanel/UserPanel.tsx";
+import About from "./components/Pages/AboutPage/AboutPage.tsx";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -78,6 +79,10 @@ const router = createBrowserRouter([
           },
           { path: "Success", element: <RecoverySuccess /> },
         ],
+      },
+      {
+        path: "UserPanel",
+        element: <UserPanel />,
       },
     ],
   },

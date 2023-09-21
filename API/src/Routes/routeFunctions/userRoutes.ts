@@ -1,4 +1,4 @@
-import { AuthRequest } from "common/Interfaces";
+import { AuthRequest, LoginResponse } from "common/Interfaces";
 import {
   addNewAccount,
   deleteAccountFromDB,
@@ -11,6 +11,7 @@ import { Request, Response } from "express";
 import status from "http-status";
 import bcrypt from "bcrypt";
 import pick from 'lodash.pick'
+import { generateAccessToken, generateRefreshToken } from "./authentication";
 
 const createNewUser = async (req: Request, res: Response) => {
   const newAccountInfo = req.body;
@@ -57,7 +58,40 @@ const readAllAccountsInfo = async (req: Request, res: Response) => {
     res.status(404).send(`no results found`);
   }
 };
-const readAccountInfo = async (req: Request, res: Response) => {
+// const readAccountInfo = async (req: Request, res: Response) => {//jwt cookies ver
+//   try {
+//     const userName = req.params.userName;
+//     const { password } = req.body;
+//     if (userName) {
+//       const accountInfo = await getAccountInfo(userName);
+//       if (accountInfo) {
+//         const isPassCorrect = bcrypt.compareSync(
+//           password,
+//           accountInfo.password
+//         );
+//         if (isPassCorrect) {
+//           console.log(`password correct`);
+//           const responseInfo=pick(accountInfo,'_id','userName','supportQuestion','supportAnswer','creationTime')
+//           res.send(responseInfo);
+//         } else {
+//           console.log(`password incorrect`);
+//           res.status(401).send(`incorrect password`);
+//         }
+//       } else {
+//         res.statusCode = status.NOT_FOUND;
+//         res.status(404).send(`account doesnt exist`);
+//       }
+//     } else {
+//       res.statusCode = status.BAD_REQUEST;
+//       res.status(400).send(`Incorrect input`);
+//     }
+//   } catch (error) {
+//     res.statusCode = status.INTERNAL_SERVER_ERROR;
+//     console.log(error);
+//     res.status(500).send(`Internal server Error`);
+//   }
+// };
+const readAccountInfo = async (req: Request, res: Response) => {//jwt cookies ver
   try {
     const userName = req.params.userName;
     const { password } = req.body;
@@ -70,7 +104,11 @@ const readAccountInfo = async (req: Request, res: Response) => {
         );
         if (isPassCorrect) {
           console.log(`password correct`);
-          const responseInfo=pick(accountInfo,'_id','userName','supportQuestion','supportAnswer','creationTime')
+          const accessToken=generateAccessToken(accountInfo);
+          const refreshToken=generateRefreshToken(accountInfo);
+          const responseInfo:LoginResponse=pick(accountInfo,'_id','userName','supportQuestion','supportAnswer','createdAt','updatedAt')
+          responseInfo.accessToken=accessToken;
+          responseInfo.refreshToken=refreshToken;
           res.send(responseInfo);
         } else {
           console.log(`password incorrect`);
@@ -89,7 +127,8 @@ const readAccountInfo = async (req: Request, res: Response) => {
     console.log(error);
     res.status(500).send(`Internal server Error`);
   }
-};const readRecoveryQuestion = async (req: Request, res: Response) => {
+};
+const readRecoveryQuestion = async (req: Request, res: Response) => {
   try {
     const userName = req.params.userName;
     if (userName) {
@@ -110,6 +149,7 @@ const readAccountInfo = async (req: Request, res: Response) => {
     res.status(500).send(`Internal server Error`);
   }
 };
+
 const updateAccountInfo = async (req: Request, res: Response) => {
   const newAccountInfo = req.body;
   const { userName } = req.params;
@@ -169,3 +209,4 @@ export {
   deleteAccount,
   readRecoveryQuestion
 };
+

@@ -9,10 +9,11 @@ export interface AnswerCont {
     answers: Array<AnswerCont>;
   }
   export interface TestCont{
+    _id?:string;
     Id?: string;
     title:TitleType;
-    creationTime?:Date;
-    updateTime?:Date;
+    createdAt?:Date;
+    updatedAt?:Date;
     owner?:string;
     questions:Array<QuestionCont>
   }
@@ -26,8 +27,8 @@ export interface AnswerCont {
     password: string;
     supportQuestion: string;
     supportAnswer: string;
-    creationTime?:Date;
-    updateTime?:Date;
+    createdAt?:Date;
+    updatedAt?:Date;
   }
 export interface Validators{
     required?: string;

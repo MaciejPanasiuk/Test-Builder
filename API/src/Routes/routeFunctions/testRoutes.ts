@@ -43,7 +43,7 @@ const createNewTest=async (req:Request, res:Response) => {
         const allUserTests = await getAllTests('',userName);
         if (allUserTests) {
           console.log(`get all tests of user ${userName}`);
-          res.send(allUserTests);
+          res.send(allUserTests);//here it crashes
         } else {
           res.statusCode = status.NOT_FOUND;
           res.status(404).send(` status ${res.statusCode} user has no tests`);

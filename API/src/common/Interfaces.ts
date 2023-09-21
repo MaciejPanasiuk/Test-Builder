@@ -13,8 +13,8 @@ export interface AnswerCont {
   export interface TestCont{
     Id?: string;
     title:TitleType;
-    creationTime?:Date;
-    updateTime?:Date;
+    createdAt?:Date;
+    updatedAt?:Date;
     owner:string;
     questions:Array<QuestionCont>
   }
@@ -29,14 +29,25 @@ export interface AnswerCont {
     password: string;
     supportQuestion: string;
     supportAnswer: string;
-    creationTime?:Date;
-    updateTime?:Date;
+    createdAt?:Date;
+    updatedAt?:Date;
   }
   export interface userTokenInfo{
       isAdmin:boolean;
       userName:string;
       accessToken?:string
   }
+  export interface LoginResponse{
+    _id:string
+    userName: string;
+    supportQuestion: string;
+    supportAnswer: string;
+    creationTime?:Date;
+    accessToken?:string;
+    refreshToken?:string
+
+  }
   export interface AuthRequest extends Request {
-    user?: userTokenInfo 
+    user?: userTokenInfo;
+    accessToken?: any;
   }

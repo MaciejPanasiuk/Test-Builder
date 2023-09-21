@@ -101,5 +101,11 @@ const isOldAndNewTheSameMiddleware=async(  req: Request,
     }
     
   }
+  const setCorsHeadersMiddleware = (  _req: Request,
+    res: Response,
+    next: NextFunction) => {
+    res.header('Access-Control-Allow-Credentials', 'true');
+    next();
+  };
 
-export { AuthMiddleware,isBodyEmptyMiddleware,OwnerExistenceCheckMiddleware,isOldAndNewTheSameMiddleware };
+export { AuthMiddleware,isBodyEmptyMiddleware,OwnerExistenceCheckMiddleware,isOldAndNewTheSameMiddleware,setCorsHeadersMiddleware };

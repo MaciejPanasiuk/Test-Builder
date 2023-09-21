@@ -41,7 +41,7 @@ export const TestSchema = new Schema<TestCont>({
   owner: { type: String, required: true },
   title: TitleTypeSchema,
   questions: [QuestionSchema],
-});
+},{timestamps: true});
 export const UserSchema = new Schema<UserAccount>({
   isAdmin: {
     type: Boolean,
@@ -63,14 +63,14 @@ export const UserSchema = new Schema<UserAccount>({
     type: String,
     required: true,
   },
-  creationTime: {
-    type: Date,
-    default: Date.now,
-  },
-  updateTime: {
-    type: Date,
-  }
-});
+  // creationTime: {
+  //   type: Date,
+  //   default: Date.now,
+  // },
+  // updateTime: {
+  //   type: Date,
+  // }
+},{timestamps: true});
 const userCollection: string = process.env.DB_USERS_COLLECTION_NAME ?? "";
 const testsCollection: string = process.env.DB_TESTS_COLLECTION_NAME ?? "";
 export const UserModel = mongoose.model(userCollection, UserSchema);
