@@ -13,7 +13,8 @@ const AuthMiddleware = async (
   const token = req.headers.authorization ?? "";
   const userNameFromParams = req.params.userName;
   if (token) {
-    const [userName, password] = token.split(":");
+    const tokenstring=token as string
+    const [userName, password] = tokenstring.split(":");
     if (userNameFromParams !== userName) {
       res.status(400).send(` status ${res.statusCode} params dont match auth`);
     } else {

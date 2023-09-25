@@ -27,7 +27,7 @@ import {
   readSpecificTestOfUser,
   updateSpecificTestOfUser,
 } from "./routeFunctions/testRoutes";
-import {logOut, verifyToken } from "./routeFunctions/authentication";
+import {logOut, verifyToken } from "./routeFunctions/authorization";
 // import {createTokenMiddleware,logOut,refreshToken, verifyTokenMiddleware } from "./routeFunctions/authentication";
 dotenv.config({ path: path.join(__dirname, "../.env") });
 
@@ -52,7 +52,7 @@ export async function serverRoutes(app: express.Application) {
   app.get("/tests", readAllTests);
   app.get("/users", readAllAccountsInfo);
   app.get('/users/:userName/recovery',readRecoveryQuestion)
-  app.get(`/users/:userName/tests/`, readAllUserTests);
+  app.get(`/users/:userName/tests`, readAllUserTests);
   app.get(`/users/:userName/tests/:testId`, readSpecificTestOfUser);
   app.patch(
     `/users/:userName`,

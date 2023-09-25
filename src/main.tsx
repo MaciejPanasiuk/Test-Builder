@@ -2,7 +2,15 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import {
+  BrowserRouter,
+  Navigate,
+  Route,
+  RouterProvider,
+  Routes,
+  createBrowserRouter,
+  createRoutesFromElements,
+} from "react-router-dom";
 import Page404 from "./components/Pages/Page404/Page404.tsx";
 import TestLoader from "./components/Test/TestLoader/TestLoader.tsx";
 import { EMPTY_TEST } from "./Data/const.ts";
@@ -20,6 +28,8 @@ import RecoverySuccess from "./components/Pages/PasswordRecoveryPage/RecoverySuc
 import ProtectedRouteRecovery from "./components/UI/ProtectedRouteRecovery.tsx";
 import UserPanel from "./components/Pages/UserPanel/UserPanel.tsx";
 import About from "./components/Pages/AboutPage/AboutPage.tsx";
+import GlobalStyles from "./styles/GlobalStyles.ts";
+import AppLayout from "./styledComponents/AppLayout.tsx";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -91,12 +101,43 @@ const router = createBrowserRouter([
     element: <Page404 />,
   },
 ]);
+// const router = createBrowserRouter(
+//   createRoutesFromElements(
+//     <Routes>
+//       <Route path='/' element={<AppLayout/>}>
+//       <Route index element={<Navigate replace to="About" />} />
+//       <Route path="About" element={<About />} />
+//       <Route path="Test" element={<TestLoader TestToLoad={EMPTY_TEST} />} />
+//       <Route path="Register" element={<RegisterPage />}>
+//         <Route path="SignIn" element={<RegisterForm />} />
+//         <Route path="Success" element={<SuccesfulRegister />} />
+//       </Route>
+//       <Route path="LogIn" element={<LoginPage />}>
+//         <Route path="Form" element={<LoginForm />} />
+//       </Route>
+//       <Route
+//         path="PasswordRecovery"
+//         element={
+//           <ProtectedRouteRecovery>
+//             <PasswordRecoveryPage />
+//           </ProtectedRouteRecovery>
+//         }
+//       >
+//         <Route path="Question" element={<RecoveryQuestion />} />
+//         <Route path="Reset" element={<ResetPassword />} />
+//         <Route path="Success" element={<RecoverySuccess />} />
+//       </Route>
+//       <Route path="UserPanel" element={<UserPanel />} />
+//       </Route>
+//       <Route path="*" element={<Page404 />} />
+//     </Routes>
+//   )
+// );
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
-      <ReactQueryDevtools />
-    </QueryClientProvider>
+    {/* <QueryClientProvider client={queryClient}> */}
+      <App />
+    {/* </QueryClientProvider> */}
   </React.StrictMode>
 );

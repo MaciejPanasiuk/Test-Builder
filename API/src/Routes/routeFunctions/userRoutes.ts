@@ -11,7 +11,7 @@ import { Request, Response } from "express";
 import status from "http-status";
 import bcrypt from "bcrypt";
 import pick from 'lodash.pick'
-import { generateAccessToken, generateRefreshToken } from "./authentication";
+import { generateAccessToken, generateRefreshToken } from "./authorization";
 
 const createNewUser = async (req: Request, res: Response) => {
   const newAccountInfo = req.body;
